@@ -3,6 +3,7 @@ package gopayment
 import (
 	"github.com/mohammadv184/gopayment/drivers"
 	"github.com/mohammadv184/gopayment/invoice"
+	_ "github.com/mohammadv184/gopayment/pkg/http"
 )
 
 type Payment struct {
