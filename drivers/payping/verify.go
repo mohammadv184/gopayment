@@ -6,24 +6,30 @@ import (
 	"github.com/mohammadv184/gopayment/receipt"
 )
 
-func (d *Driver) Verify(amount string, refID string) (*receipt.Receipt, error) {
-	var reqBody = map[string]interface{}{
-		"refId":  refID,
-		"amount": amount,
-	}
-	resp, _ := client.Post(ApiVerifyUrl, reqBody, map[string]string{
+type VerifyRequest struct {
+	RefID  string `json:"refId"`
+	Amount string `json:"amount"`
+}
+
+func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
+	verifyReq := vReq.(*VerifyRequest)
+	resp, _ := client.Post(ApiVerifyUrl, verifyReq, map[string]string{
 		"Authorization": "Bearer " + d.Token,
 	})
-	if resp.StatusCode() != 200 {
-		return nil, e.ErrInvalidPayment{}
-	}
-
 	var res map[string]interface{}
-	err := json.Unmarshal(resp.Body(), &res)
-	if err != nil {
-		return nil, err
+	_ = json.Unmarshal(resp.Body(), &res)
+	if resp.StatusCode() != 200 {
+		if res == nil {
+			return nil, e.ErrInvalidPayment{
+				Message: "error in verify payment",
+			}
+		}
+
+		return nil, e.ErrInvalidPayment{
+			Message: res["1"].(string),
+		}
 	}
-	rec := receipt.NewReceipt(refID, d.GetDriverName())
+	rec := receipt.NewReceipt(verifyReq.RefID, d.GetDriverName())
 	rec.Detail("cardNumber", res["cardNumber"].(string))
 
 	return rec, nil

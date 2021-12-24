@@ -10,7 +10,7 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	var reqBody = map[string]interface{}{
 		"returnUrl":   d.Callback,
 		"description": d.Description,
-		"amount":      invoice.Amount,
+		"amount":      invoice.GetAmount(),
 		"clientRefId": invoice.GetUUID(),
 	}
 	if d, err := invoice.GetDetail("phone"); err == nil {
@@ -38,5 +38,5 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	return res["code"].(string), nil
 }
 func (d *Driver) PayUrl(invoice *invoice.Invoice) string {
-	return ApiPaymentUrl + invoice.TransactionID
+	return ApiPaymentUrl + invoice.GetTransactionID()
 }

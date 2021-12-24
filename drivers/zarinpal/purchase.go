@@ -11,12 +11,14 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 		"merchant_id":  d.MerchantID,
 		"callback_url": d.Callback,
 		"description":  d.Description,
-		"amount":       invoice.Amount,
+		"amount":       invoice.GetAmount(),
 		"metadata":     invoice.GetDetails(),
 	}
 	resp, _ := client.Post(ApiPurchaseUrl, reqBody, nil)
 	if resp.StatusCode() != 100 {
-		return "", e.ErrPurchaseFailed{}
+		return "", e.ErrPurchaseFailed{
+			Message: resp.Status() + " purchase failed",
+		}
 	}
 	var res map[string]interface{}
 	err := json.Unmarshal(resp.Body(), &res)
@@ -26,5 +28,5 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	return res["data"].(map[string]interface{})["authority"].(string), nil
 }
 func (d *Driver) PayUrl(invoice *invoice.Invoice) string {
-	return ApiPaymentUrl + invoice.TransactionID
+	return ApiPaymentUrl + invoice.GetTransactionID()
 }

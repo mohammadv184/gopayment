@@ -2,12 +2,14 @@ package zarinpal
 
 import (
 	httpClient "github.com/mohammadv184/gopayment/pkg/http"
+	"github.com/mohammadv184/gopayment/traits"
 )
 
 type Driver struct {
 	MerchantID  string
 	Callback    string
 	Description string
+	traits.HasDetail
 }
 
 const (

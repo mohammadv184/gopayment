@@ -9,5 +9,5 @@ type Driver interface {
 	Purchase(invoice *invoice.Invoice) (string, error)
 	PayUrl(invoice *invoice.Invoice) string
 	GetDriverName() string
-	Verify(amount string, refID string) (*receipt.Receipt, error)
+	Verify(interface{}) (*receipt.Receipt, error)
 }

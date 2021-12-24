@@ -6,15 +6,18 @@ import (
 	"github.com/mohammadv184/gopayment/receipt"
 )
 
-func (d *Driver) Verify(amount string, transID string) (*receipt.Receipt, error) {
-	var reqBody = map[string]interface{}{
-		"authority":   transID,
-		"merchant_id": d.MerchantID,
-		"amount":      amount,
-	}
-	resp, _ := client.Post(ApiVerifyUrl, reqBody, nil)
+type VerifyRequest struct {
+	Amount    string `json:"Amount"`
+	Authority string `json:"Authority"`
+}
+
+func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
+	verifyReq := vReq.(*VerifyRequest)
+	resp, _ := client.Post(ApiVerifyUrl, verifyReq, nil)
 	if resp.StatusCode() != 100 {
-		return nil, e.ErrInvalidPayment{}
+		return nil, e.ErrInvalidPayment{
+			Message: resp.Status() + " Invalid payment",
+		}
 	}
 
 	var res map[string]interface{}
@@ -23,6 +26,5 @@ func (d *Driver) Verify(amount string, transID string) (*receipt.Receipt, error)
 		return nil, err
 	}
 	rec := receipt.NewReceipt(res["data"].(map[string]interface{})["ref_id"].(string), d.GetDriverName())
-
 	return rec, nil
 }

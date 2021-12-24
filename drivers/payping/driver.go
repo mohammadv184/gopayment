@@ -2,12 +2,14 @@ package payping
 
 import (
 	httpClient "github.com/mohammadv184/gopayment/pkg/http"
+	"github.com/mohammadv184/gopayment/traits"
 )
 
 type Driver struct {
 	Token       string
 	Callback    string
 	Description string
+	traits.HasDetail
 }
 
 const (
