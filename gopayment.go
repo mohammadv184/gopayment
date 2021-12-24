@@ -3,7 +3,6 @@ package gopayment
 import (
 	"github.com/mohammadv184/gopayment/drivers"
 	"github.com/mohammadv184/gopayment/invoice"
-	"log"
 )
 
 type Payment struct {
@@ -12,22 +11,27 @@ type Payment struct {
 }
 
 func (p *Payment) Amount(amount int) error {
-	err := p.invoice.SetAmount(int32(amount))
+	err := p.invoice.SetAmount(uint32(amount))
 	if err != nil {
 		return err
 	}
 	return nil
 }
-func (p *Payment) Purchase() {
+func (p *Payment) Purchase() error {
 	transID, err := p.driver.Purchase(p.invoice)
 	if err != nil {
-		log.Println(err)
+		return err
 	}
 	p.invoice.SetTransactionID(transID)
+	return nil
 }
 func (p *Payment) PayUrl() string {
 	return p.driver.PayUrl(p.invoice)
 }
+func (p *Payment) GetInvoice() *invoice.Invoice {
+	return p.invoice
+}
+
 func NewPayment(driver drivers.Driver) *Payment {
 	return &Payment{
 		driver:  driver,
