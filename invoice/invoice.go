@@ -7,46 +7,49 @@ import (
 )
 
 type Invoice struct {
-	UUID          string `json:"uuid"`
-	Amount        int32  `json:"amount"`
-	TransactionID string `json:"transaction_id"`
+	uUID          string
+	amount        uint32
+	transactionID string
 	traits.HasDetail
 }
 
 func NewInvoice() *Invoice {
 	return &Invoice{
-		UUID: uuid.New().String(),
+		uUID: uuid.New().String(),
 	}
 }
 
-func (i *Invoice) SetAmount(amount int32) error {
+func (i *Invoice) SetAmount(amount uint32) error {
 	if amount > 50000000 {
 		return fmt.Errorf("amount must be less than 50,000,000")
 	}
-	i.Amount = amount
+	i.amount = amount
 	return nil
+}
+func (i *Invoice) GetAmount() uint32 {
+	return i.amount
 }
 
 func (i *Invoice) SetUUID(uid ...string) {
 	if len(uid) > 0 {
-		i.UUID = uid[0]
+		i.uUID = uid[0]
 	}
-	if i.UUID == "" {
-		i.UUID = uuid.New().String()
+	if i.uUID == "" {
+		i.uUID = uuid.New().String()
 	}
 
 }
 
 func (i *Invoice) GetUUID() string {
-	if i.UUID == "" {
+	if i.uUID == "" {
 		i.SetUUID()
 	}
 
-	return i.UUID
+	return i.uUID
 }
 func (i *Invoice) SetTransactionID(transactionID string) {
-	i.TransactionID = transactionID
+	i.transactionID = transactionID
 }
 func (i *Invoice) GetTransactionID() string {
-	return i.TransactionID
+	return i.transactionID
 }
