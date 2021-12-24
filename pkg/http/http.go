@@ -23,27 +23,27 @@ func NewHttp() *Http {
 	})
 	return singleton
 }
-func (h *Http) Get(url string, query map[string]interface{}, header map[string]string) (*resty.Response, error) {
+func (h *Http) Get(url string, query interface{}, header map[string]string) (*resty.Response, error) {
 	return h.Request("GET", url, query, header)
 }
-func (h *Http) Post(url string, body map[string]interface{}, header map[string]string) (*resty.Response, error) {
+func (h *Http) Post(url string, body interface{}, header map[string]string) (*resty.Response, error) {
 	return h.Request("POST", url, body, header)
 }
-func (h *Http) Put(url string, body map[string]interface{}, header map[string]string) (*resty.Response, error) {
+func (h *Http) Put(url string, body interface{}, header map[string]string) (*resty.Response, error) {
 	return h.Request("PUT", url, body, header)
 }
-func (h *Http) Patch(url string, body map[string]interface{}, header map[string]string) (*resty.Response, error) {
+func (h *Http) Patch(url string, body interface{}, header map[string]string) (*resty.Response, error) {
 	return h.Request("PATCH", url, body, header)
 }
-func (h *Http) Delete(url string, body map[string]interface{}, header map[string]string) (*resty.Response, error) {
+func (h *Http) Delete(url string, body interface{}, header map[string]string) (*resty.Response, error) {
 	return h.Request("DELETE", url, body, header)
 }
-func (h *Http) Request(method string, url string, body map[string]interface{}, header map[string]string) (*resty.Response, error) {
+func (h *Http) Request(method string, url string, body interface{}, header map[string]string) (*resty.Response, error) {
 	method = strings.ToUpper(method)
 	req := h.client.R()
 	req.SetHeaders(header)
 	if method == "GET" {
-		for k, v := range body {
+		for k, v := range body.(map[string]interface{}) {
 			req.SetQueryParam(k, fmt.Sprintf("%v", v))
 		}
 	} else {
