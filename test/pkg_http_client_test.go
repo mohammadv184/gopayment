@@ -128,7 +128,7 @@ func (s *HttpClientTestSuite) TestRequest() {
 
 	s.Equal(reqBody, respBody["args"])
 
-	req, err = s.Client.Request("get", "test", reqBody, headers)
+	_, err = s.Client.Request("get", "test", reqBody, headers)
 	s.Require().NotNil(err)
 
 }
