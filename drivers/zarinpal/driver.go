@@ -2,16 +2,16 @@ package zarinpal
 
 import (
 	httpClient "github.com/mohammadv184/gopayment/pkg/http"
-	"github.com/mohammadv184/gopayment/traits"
 )
 
+// Driver config struct for zarinpal driver
 type Driver struct {
 	MerchantID  string
 	Callback    string
 	Description string
-	traits.HasDetail
 }
 
+// Const's for zarinpal driver
 const (
 	ApiPurchaseUrl = "https://api.zarinpal.com/pg/v4/payment/request.json"
 	ApiVerifyUrl   = "https://api.zarinpal.com/pg/v4/payment/verify.json"
@@ -23,6 +23,8 @@ var client httpClient.Client
 func init() {
 	client = httpClient.NewHttp()
 }
+
+// GetDriverName returns driver name
 func (d Driver) GetDriverName() string {
 	return "ZarinPal"
 }

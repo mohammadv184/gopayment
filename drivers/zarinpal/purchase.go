@@ -6,6 +6,7 @@ import (
 	"github.com/mohammadv184/gopayment/invoice"
 )
 
+// Purchase sends a request to Zarinpal to purchase an invoice.
 func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	var reqBody = map[string]interface{}{
 		"merchant_id":  d.MerchantID,
@@ -27,6 +28,8 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	}
 	return res["data"].(map[string]interface{})["authority"].(string), nil
 }
+
+// PayUrl returns the url to redirect the user to in order to pay the invoice.
 func (d *Driver) PayUrl(invoice *invoice.Invoice) string {
 	return ApiPaymentUrl + invoice.GetTransactionID()
 }

@@ -6,11 +6,13 @@ import (
 	"github.com/mohammadv184/gopayment/receipt"
 )
 
+// VerifyRequest is the request struct for verify
 type VerifyRequest struct {
 	RefID  string `json:"refId"`
 	Amount string `json:"amount"`
 }
 
+// Verify is the function to verify payment
 func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 	verifyReq := vReq.(*VerifyRequest)
 	resp, _ := client.Post(ApiVerifyUrl, verifyReq, map[string]string{
