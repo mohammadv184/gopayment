@@ -5,6 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/mohammadv184/gopayment)](https://github.com/mohammadv184/gopayment/issues)
 [![codecov](https://codecov.io/gh/mohammadv184/gopayment/branch/main/graph/badge.svg?token=VO7KKJTIU2)](https://codecov.io/gh/mohammadv184/gopayment)
 [![Go Report Card](https://goreportcard.com/badge/github.com/mohammadv184/gopayment)](https://goreportcard.com/report/github.com/mohammadv184/gopayment)
+[![Build Status](https://app.travis-ci.com/mohammadv184/gopayment.svg?branch=main)](https://app.travis-ci.com/mohammadv184/gopayment)
 
 Multi Gateway Payment Package for Golang.
 

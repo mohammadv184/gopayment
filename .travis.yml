@@ -5,6 +5,6 @@ go:
   - master
 
 script:
-  - go test -v -race -coverprofile=coverage.txt -covermode=atomic ./test
+  - go test ./test -v -race -coverprofile=coverage.txt -covermode=atomic  -coverpkg=./...
 after_success:
   - bash <(curl -s https://codecov.io/bash)
