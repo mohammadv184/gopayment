@@ -1,5 +1,10 @@
 # GoPayment
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/mohammadv184/gopayment.svg)](https://pkg.go.dev/github.com/mohammadv184/gopayment)
+[![GitHub license](https://img.shields.io/github/license/mohammadv184/gopayment)](https://github.com/mohammadv184/gopayment/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/mohammadv184/gopayment)](https://github.com/mohammadv184/gopayment/issues)
+[![codecov](https://codecov.io/gh/mohammadv184/gopayment/branch/main/graph/badge.svg?token=VO7KKJTIU2)](https://codecov.io/gh/mohammadv184/gopayment)
+[![Go Report Card](https://goreportcard.com/badge/github.com/mohammadv184/gopayment)](https://goreportcard.com/report/github.com/mohammadv184/gopayment)
 
 Multi Gateway Payment Package for Golang.
 
@@ -176,8 +181,8 @@ If you discover any security related issues, please email mohammadv184@gmail.com
 
 ## Credits
 
-- [Mohammad Abbasi][https://github.com/mohammadv184]
-- [All Contributors][../../contributors]
+- [Mohammad Abbasi](https://github.com/mohammadv184)
+- [All Contributors](../../contributors)
 
 ## License
 
