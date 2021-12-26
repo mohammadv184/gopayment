@@ -14,14 +14,9 @@ Multi Gateway Payment Package for Golang.
         - [Purchase invoice](#purchase)
         - [Pay invoice](#pay)
         - [Verify payment](#verify-payment)
-        - [Useful methods](#useful-methods)
-        - [Create custom drivers:](#create-custom-drivers)
-        - [Events](#events)
-    - [Change log](#change-log)
-    - [Contributing](#contributing)
-    - [Security](#security)
-    - [Credits](#credits)
-    - [License](#license)
+- [Security](#security)
+- [Credits](#credits)
+- [License](#license)
 
 # List of available drivers
 - [zarinpal](https://www.zarinpal.com/) :white_check_mark:
@@ -177,14 +172,6 @@ c.JSON(200, gin.H{
 })
 }
 ```
-## Change log
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has been changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
-
 ## Security
 
 If you discover any security related issues, please email mohammadv184@gmail.com instead of using the issue tracker.
