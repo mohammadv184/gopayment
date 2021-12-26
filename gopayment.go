@@ -45,6 +45,11 @@ func (p *Payment) GetInvoice() *invoice.Invoice {
 	return p.invoice
 }
 
+// GetTransactionID return the payment transaction id
+func (p *Payment) GetTransactionID() string {
+	return p.invoice.GetTransactionID()
+}
+
 // NewPayment create a new payment
 func NewPayment(driver drivers.Driver) *Payment {
 	return &Payment{

@@ -35,7 +35,8 @@ func (s *GoPaymentTestSuite) TestCreatePayment() {
 	s.NotNil(err)
 	s.EqualError(err, "amount is less than 100")
 
-	s.Equal("gateway.com/"+payment.GetInvoice().GetUUID(), payment.PayUrl())
+	s.Equal(payment.GetTransactionID(), payment.GetInvoice().GetTransactionID())
+	s.Equal("gateway.com/"+payment.GetTransactionID(), payment.PayUrl())
 
 }
 func TestGoPaymentTestSuite(t *testing.T) {
