@@ -10,10 +10,10 @@ Multi Gateway Payment Package for Golang.
 - [List of available drivers](#list-of-available-drivers)
     - [Installation](#Installation)
     - [How to use](#how-to-use)
-        - [Working with invoices](#working-with-invoices)
-        - [Purchase invoice](#purchase)
-        - [Pay invoice](#pay)
+        - [Purchase](#purchase)
+        - [Pay](#pay)
         - [Verify payment](#verify-payment)
+        - [Working with invoices](#working-with-invoices)
 - [Security](#security)
 - [Credits](#credits)
 - [License](#license)
@@ -51,37 +51,6 @@ go get -u github.com/mohammadv184/gopayment
 
 ## How to use
 
-your `Invoice` holds your payment details, so initially we'll talk about `Invoice`.
-
-#### Working with invoices
-
-When you make a payment, the invoice is automatically generated within the payment
-
-
-In your code, use it like the below:
-```go
-// Create new Payment.
-payment := gopayment.NewPayment(Gateway)
-// Get the invoice.
-invoice:=payment.GetInvoice()
-// Set Invoice Amount.
-invoice.SetAmount(1000)
-// Set Invoice Deatils.
-invoice.Detail("phone","0912345678")
-invoice.Detail("email","example@example.com")
-
-```
-Available methods:
-
-- `SetUuid`: set the invoice unique id
-- `GetUuid`: retrieve the invoice current unique id
-- `Detail`: attach some custom details into invoice
-- `GetDetail`: retrieve the invoice detail
-- `GetDetails`: retrieve all custom details
-- `SetAmount`: set the invoice amount
-- `GetAmount`: retrieve invoice amount
-- `SetTransactionID`: set invoice payment transaction id
-- `GetTransactionID`: retrieve payment transaction id
 
 #### Purchase
 In order to pay the invoice, we need the payment transactionId.
@@ -172,6 +141,35 @@ c.JSON(200, gin.H{
 })
 }
 ```
+#### Working with invoices
+
+When you make a payment, the invoice is automatically generated within the payment
+
+
+In your code, use it like the below:
+```go
+// Create new Payment.
+payment := gopayment.NewPayment(Gateway)
+// Get the invoice.
+invoice:=payment.GetInvoice()
+// Set Invoice Amount.
+invoice.SetAmount(1000)
+// Set Invoice Deatils.
+invoice.Detail("phone","0912345678")
+invoice.Detail("email","example@example.com")
+
+```
+Available methods:
+
+- `SetUuid`: set the invoice unique id
+- `GetUuid`: retrieve the invoice current unique id
+- `Detail`: attach some custom details into invoice
+- `GetDetail`: retrieve the invoice detail
+- `GetDetails`: retrieve all custom details
+- `SetAmount`: set the invoice amount
+- `GetAmount`: retrieve invoice amount
+- `SetTransactionID`: set invoice payment transaction id
+- `GetTransactionID`: retrieve payment transaction id
 ## Security
 
 If you discover any security related issues, please email mohammadv184@gmail.com instead of using the issue tracker.
