@@ -8,7 +8,7 @@ import (
 )
 
 // Version is the version of gopayment
-const Version = "0.1.2"
+const Version = "v1.1.0"
 
 // Payment is the payment main struct of gopayment
 type Payment struct {
