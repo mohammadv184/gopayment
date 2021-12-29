@@ -3,7 +3,7 @@ package invoice
 import (
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/mohammadv184/gopayment/traits"
+	"github.com/mohammadv184/gopayment/trait"
 )
 
 // Invoice is a struct that holds the invoice data
@@ -11,7 +11,7 @@ type Invoice struct {
 	uUID          string
 	amount        uint32
 	transactionID string
-	traits.HasDetail
+	trait.HasDetail
 }
 
 // NewInvoice creates a new invoice

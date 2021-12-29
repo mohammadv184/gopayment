@@ -1,7 +1,7 @@
 package test
 
 import (
-	"github.com/mohammadv184/gopayment/traits"
+	"github.com/mohammadv184/gopayment/trait"
 	"github.com/stretchr/testify/suite"
 	"testing"
 )
@@ -9,7 +9,7 @@ import (
 type TraitsDetailTestSuite struct {
 	suite.Suite
 	ExampleObj struct {
-		traits.HasDetail
+		trait.HasDetail
 	}
 }
 
