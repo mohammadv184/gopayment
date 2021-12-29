@@ -43,3 +43,8 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 func (d *Driver) PayUrl(invoice *invoice.Invoice) string {
 	return ApiPaymentUrl + invoice.GetTransactionID()
 }
+
+// PayMethod returns the Request Method to be used to pay the invoice.
+func (d *Driver) PayMethod() string {
+	return "GET"
+}

@@ -36,6 +36,7 @@ func (s *GoPaymentTestSuite) TestCreatePayment() {
 	s.EqualError(err, "amount is less than 100")
 
 	s.Equal(payment.GetTransactionID(), payment.GetInvoice().GetTransactionID())
+	s.Equal("GET", payment.PayMethod())
 	s.Equal("gateway.com/"+payment.GetTransactionID(), payment.PayUrl())
 
 }
@@ -63,4 +64,7 @@ func (g *gateway) PayUrl(invoice *invoice.Invoice) string {
 }
 func (g *gateway) Verify(interface{}) (*receipt.Receipt, error) {
 	return receipt.NewReceipt("test", g.GetDriverName()), nil
+}
+func (g *gateway) PayMethod() string {
+	return "GET"
 }

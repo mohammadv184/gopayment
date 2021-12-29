@@ -15,4 +15,6 @@ type Driver interface {
 	GetDriverName() string
 	// Verify checks the payment status of the invoice.
 	Verify(interface{}) (*receipt.Receipt, error)
+	// PayMethod returns the payment request method.
+	PayMethod() string
 }

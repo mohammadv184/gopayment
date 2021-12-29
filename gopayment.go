@@ -40,6 +40,11 @@ func (p *Payment) PayUrl() string {
 	return p.driver.PayUrl(p.invoice)
 }
 
+// PayMethod returns the Request Method to be used to pay the invoice.
+func (p *Payment) PayMethod() string {
+	return p.driver.PayMethod()
+}
+
 // GetInvoice return the payment invoice
 func (p *Payment) GetInvoice() *invoice.Invoice {
 	return p.invoice
