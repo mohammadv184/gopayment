@@ -39,8 +39,8 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	return res["code"].(string), nil
 }
 
-// PayUrl return pay url
-func (d *Driver) PayUrl(invoice *invoice.Invoice) string {
+// PayURL return pay url
+func (d *Driver) PayURL(invoice *invoice.Invoice) string {
 	return ApiPaymentUrl + invoice.GetTransactionID()
 }
 

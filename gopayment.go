@@ -35,8 +35,8 @@ func (p *Payment) Purchase() error {
 	return nil
 }
 
-// PayUrl return the payment url
-func (p *Payment) PayUrl() string {
+// PayURL return the payment URL
+func (p *Payment) PayURL() string {
 	return p.driver.PayUrl(p.invoice)
 }
 
