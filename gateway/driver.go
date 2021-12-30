@@ -1,4 +1,4 @@
-package drivers
+package gateway
 
 import (
 	"github.com/mohammadv184/gopayment/invoice"
