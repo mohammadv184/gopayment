@@ -23,6 +23,7 @@ Multi Gateway Payment Package for Golang.
         - [Pay](#pay)
         - [Verify payment](#verify-payment)
         - [Working with invoices](#working-with-invoices)
+        - [Example](#example)
 - [Security](#security)
 - [Credits](#credits)
 - [License](#license)
@@ -179,6 +180,9 @@ Available methods:
 - `GetAmount`: retrieve invoice amount
 - `SetTransactionID`: set invoice payment transaction id
 - `GetTransactionID`: retrieve payment transaction id
+
+#### Example
+You Can See example of implementation in the [GoPayment-Example](https://github.com/mohammadv184/gopayment-example) Repo
 ## Security
 
 If you discover any security related issues, please email mohammadv184@gmail.com instead of using the issue tracker.
