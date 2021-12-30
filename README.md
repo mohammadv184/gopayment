@@ -67,13 +67,13 @@ In order to pay the invoice, we need the payment transactionId.
 We purchase the invoice to retrieve transaction id:
 ```go
 // Configure the Gateway Driver
-Gateway:=&payping.Driver{
+driver:=&payping.Driver{
 Callback:    "http://example.test/callback",
 Description: "test",
 Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 }
 // Create new Payment.
-payment := gopayment.NewPayment(Gateway)
+payment := gopayment.NewPayment(driver)
 // Set Invoice Amount.
 err := payment.Amount(amountInt)
 if err != nil {
@@ -93,13 +93,13 @@ After purchasing the invoice, we can redirect the user to the bank payment page:
 func pay() gin.HandlerFunc {
     return func(c *gin.Context) {
         // Configure the Gateway Driver
-        Gateway:=&payping.Driver{
+        driver:=&payping.Driver{
         Callback:    "http://example.test/callback",
         Description: "test",
         Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         }
         // Create new Payment.
-        payment := gopayment.NewPayment(Gateway)
+        payment := gopayment.NewPayment(driver)
         // Set Invoice Amount.
         err := payment.Amount(amountInt)
         if err != nil {
@@ -110,7 +110,7 @@ func pay() gin.HandlerFunc {
         if err != nil {
             fmt.Println(err)
         }
-        // Get Transaction ID
+        // Get Transaction ID And Save it to the database.
         transactionID := payment.GetTransactionID()
         // Redirect the user to the bank payment page.
         payUrl := payment.PayURL()
@@ -124,19 +124,19 @@ func pay() gin.HandlerFunc {
 When user has completed the payment, the bank redirects them to your website, then you need to **verify your payment** to make sure that the payment is valid.:
 ```go
 // Configure the Gateway Driver
-Gateway:=&payping.Driver{
+driver:=&payping.Driver{
 Callback:    "http://example.test/callback",
 Description: "test",
 Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 }
 
 refId := c.Query("refId")
-VerifyRequest:=&&payping.VerifyRequest{
+VerifyRequest:=&payping.VerifyRequest{
 Amount: "100",
 RefID:  refID,
 }
 
-if receipt, err := Gateway.Verify(VerifyRequest); err == nil {
+if receipt, err := driver.Verify(VerifyRequest); err == nil {
 cardNum, _ := receipt.GetDetail("cardNumber")
 c.JSON(200, gin.H{
 "status": "success",
@@ -159,7 +159,7 @@ When you make a payment, the invoice is automatically generated within the payme
 In your code, use it like the below:
 ```go
 // Create new Payment.
-payment := gopayment.NewPayment(Gateway)
+payment := gopayment.NewPayment(driver)
 // Get the invoice.
 invoice:=payment.GetInvoice()
 // Set Invoice Amount.

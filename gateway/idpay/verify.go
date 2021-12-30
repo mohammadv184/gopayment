@@ -10,7 +10,7 @@ import (
 
 // VerifyRequest is the request struct for verify
 type VerifyRequest struct {
-	RefID string `json:"refId"`
+	RefID string `json:"order_id"`
 	ID    string `json:"id"`
 }
 
