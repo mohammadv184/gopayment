@@ -59,7 +59,7 @@ func (g *Gateway) Purchase(invoice *invoice.Invoice) (string, error) {
 	}
 	return invoice.GetUUID(), nil
 }
-func (g *Gateway) PayUrl(invoice *invoice.Invoice) string {
+func (g *Gateway) PayURL(invoice *invoice.Invoice) string {
 	return "Gateway.com/" + invoice.GetTransactionID()
 }
 func (g *Gateway) Verify(interface{}) (*receipt.Receipt, error) {

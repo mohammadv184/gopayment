@@ -37,7 +37,7 @@ func (p *Payment) Purchase() error {
 
 // PayURL return the payment URL
 func (p *Payment) PayURL() string {
-	return p.driver.PayUrl(p.invoice)
+	return p.driver.PayURL(p.invoice)
 }
 
 // PayMethod returns the Request Method to be used to pay the invoice.

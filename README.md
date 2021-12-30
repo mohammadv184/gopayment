@@ -113,7 +113,7 @@ func pay() gin.HandlerFunc {
         // Get Transaction ID
         transactionID := payment.GetTransactionID()
         // Redirect the user to the bank payment page.
-        payUrl := payment.PayUrl()
+        payUrl := payment.PayURL()
 		c.Redirect(http.StatusFound, payUrl)
 	}
 }
