@@ -36,7 +36,7 @@ Multi Gateway Payment Package for Golang.
 - [digipay](https://www.mydigipay.com/) :x: (will be added soon)
 - [etebarino (Installment payment)](https://etebarino.com/) :x: (will be added soon)
 - [sepehr (saderat)](https://www.sepehrpay.com/) :x: (will be added soon)
-- [idpay](https://idpay.ir/) :x: (will be added soon)
+- [idpay](https://idpay.ir/) :white_check_mark:
 - [poolam](https://poolam.ir/) :x: (will be added soon)
 - [irankish](http://irankish.com/) :x: (will be added soon)
 - [nextpay](https://nextpay.ir/) :x: (will be added soon)
