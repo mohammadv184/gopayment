@@ -3,7 +3,6 @@ package idpay
 import (
 	"encoding/json"
 	e "github.com/mohammadv184/gopayment/errors"
-	"github.com/mohammadv184/gopayment/gateway/payping"
 	"github.com/mohammadv184/gopayment/receipt"
 	"strconv"
 )
@@ -17,7 +16,7 @@ type VerifyRequest struct {
 // Verify is the function to verify payment
 func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 	verifyReq := vReq.(*VerifyRequest)
-	resp, _ := client.Post(payping.ApiVerifyUrl, verifyReq, map[string]string{
+	resp, _ := client.Post(ApiVerifyUrl, verifyReq, map[string]string{
 		"X-API-KEY": d.MerchantID,
 		"X-SANDBOX": strconv.FormatBool(d.Sandbox),
 	})
