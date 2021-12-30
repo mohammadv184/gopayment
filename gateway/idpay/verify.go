@@ -28,9 +28,9 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 		}
 	}
 	_ = json.Unmarshal(resp.Body(), &res)
-	if res["status"].(string) != "100" {
+	if res["status"].(float64) != 100 {
 		return nil, e.ErrInvalidPayment{
-			Message: convertResponseStatusToMessage(res["status"].(string)),
+			Message: convertResponseStatusToMessage(res["status"].(float64)),
 		}
 	}
 	rec := receipt.NewReceipt(res["track_id"].(string), d.GetDriverName())
@@ -39,31 +39,31 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 
 	return rec, nil
 }
-func convertResponseStatusToMessage(status string) string {
+func convertResponseStatusToMessage(status float64) string {
 	switch status {
-	case "1":
+	case 1:
 		return "پرداخت انجام نشده است"
-	case "2":
+	case 2:
 		return "پرداخت ناموفق بوده است"
-	case "3":
+	case 3:
 		return "خطا رخ داده است"
-	case "4":
+	case 4:
 		return "بلوکه شده"
-	case "5":
+	case 5:
 		return "برگشت به پرداخت کننده"
-	case "6":
+	case 6:
 		return "برگشت خورده سیستمی"
-	case "7":
+	case 7:
 		return "انصراف از پرداخت"
-	case "8":
+	case 8:
 		return "به درگاه پرداخت منتقل شد"
-	case "10":
+	case 10:
 		return "در انتظار تایید پرداخت"
-	case "100":
+	case 100:
 		return "پرداخت تایید شده است"
-	case "101":
+	case 101:
 		return "پرداخت قبلا تایید شده است"
-	case "200":
+	case 200:
 		return "به دریافت کننده واریز شد"
 	default:
 		return "وضعیت نامشخص"
