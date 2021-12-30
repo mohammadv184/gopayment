@@ -1,8 +1,8 @@
 package invoice
 
 import (
-	"fmt"
 	"github.com/google/uuid"
+	"github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/trait"
 )
 
@@ -24,7 +24,9 @@ func NewInvoice() *Invoice {
 // SetAmount sets the amount of the invoice
 func (i *Invoice) SetAmount(amount uint32) error {
 	if amount > 50000000 {
-		return fmt.Errorf("amount must be less than 50,000,000")
+		return errors.ErrInternal{
+			Message: "amount must be less than 50,000,000",
+		}
 	}
 	i.amount = amount
 	return nil

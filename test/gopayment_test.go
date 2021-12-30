@@ -25,6 +25,7 @@ func (s *GoPaymentTestSuite) TestCreatePayment() {
 
 	err = payment.Amount(50000001)
 	s.NotNil(err)
+	s.Equal("amount must be less than 50,000,000", err.Error())
 
 	err = payment.Purchase()
 	s.Nil(err)
