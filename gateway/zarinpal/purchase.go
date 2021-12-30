@@ -29,8 +29,8 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	return res["data"].(map[string]interface{})["authority"].(string), nil
 }
 
-// PayUrl returns the url to redirect the user to in order to pay the invoice.
-func (d *Driver) PayUrl(invoice *invoice.Invoice) string {
+// PayURL returns the url to redirect the user to in order to pay the invoice.
+func (d *Driver) PayURL(invoice *invoice.Invoice) string {
 	return ApiPaymentUrl + invoice.GetTransactionID()
 }
 

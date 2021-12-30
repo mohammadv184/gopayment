@@ -1,7 +1,7 @@
 package receipt
 
 import (
-	"github.com/mohammadv184/gopayment/traits"
+	"github.com/mohammadv184/gopayment/trait"
 	"time"
 )
 
@@ -10,7 +10,7 @@ type Receipt struct {
 	referenceID string
 	date        time.Time
 	driver      string
-	traits.HasDetail
+	trait.HasDetail
 }
 
 // NewReceipt creates a new receipt

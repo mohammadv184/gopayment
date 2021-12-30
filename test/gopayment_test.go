@@ -2,8 +2,8 @@ package test
 
 import (
 	"github.com/mohammadv184/gopayment"
-	"github.com/mohammadv184/gopayment/drivers"
 	"github.com/mohammadv184/gopayment/errors"
+	"github.com/mohammadv184/gopayment/gateway"
 	"github.com/mohammadv184/gopayment/invoice"
 	"github.com/mohammadv184/gopayment/receipt"
 	"github.com/stretchr/testify/suite"
@@ -12,11 +12,11 @@ import (
 
 type GoPaymentTestSuite struct {
 	suite.Suite
-	Gateway drivers.Driver
+	Gateway gateway.Driver
 }
 
 func (s *GoPaymentTestSuite) SetupTest() {
-	s.Gateway = &gateway{}
+	s.Gateway = &Gateway{}
 }
 func (s *GoPaymentTestSuite) TestCreatePayment() {
 	payment := gopayment.NewPayment(s.Gateway)
@@ -37,21 +37,21 @@ func (s *GoPaymentTestSuite) TestCreatePayment() {
 
 	s.Equal(payment.GetTransactionID(), payment.GetInvoice().GetTransactionID())
 	s.Equal("GET", payment.PayMethod())
-	s.Equal("gateway.com/"+payment.GetTransactionID(), payment.PayUrl())
+	s.Equal("Gateway.com/"+payment.GetTransactionID(), payment.PayURL())
 
 }
 func TestGoPaymentTestSuite(t *testing.T) {
 	suite.Run(t, new(GoPaymentTestSuite))
 }
 
-// gateway driver mock
-type gateway struct {
+// Gateway driver mock
+type Gateway struct {
 }
 
-func (g gateway) GetDriverName() string {
+func (g Gateway) GetDriverName() string {
 	return "MockGateway"
 }
-func (g *gateway) Purchase(invoice *invoice.Invoice) (string, error) {
+func (g *Gateway) Purchase(invoice *invoice.Invoice) (string, error) {
 	if invoice.GetAmount() < 100 {
 		return "", errors.ErrPurchaseFailed{
 			Message: "amount is less than 100",
@@ -59,12 +59,12 @@ func (g *gateway) Purchase(invoice *invoice.Invoice) (string, error) {
 	}
 	return invoice.GetUUID(), nil
 }
-func (g *gateway) PayUrl(invoice *invoice.Invoice) string {
-	return "gateway.com/" + invoice.GetTransactionID()
+func (g *Gateway) PayURL(invoice *invoice.Invoice) string {
+	return "Gateway.com/" + invoice.GetTransactionID()
 }
-func (g *gateway) Verify(interface{}) (*receipt.Receipt, error) {
+func (g *Gateway) Verify(interface{}) (*receipt.Receipt, error) {
 	return receipt.NewReceipt("test", g.GetDriverName()), nil
 }
-func (g *gateway) PayMethod() string {
+func (g *Gateway) PayMethod() string {
 	return "GET"
 }

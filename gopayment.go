@@ -2,7 +2,7 @@
 package gopayment
 
 import (
-	"github.com/mohammadv184/gopayment/drivers"
+	"github.com/mohammadv184/gopayment/gateway"
 	"github.com/mohammadv184/gopayment/invoice"
 	_ "github.com/mohammadv184/gopayment/pkg/http"
 )
@@ -12,7 +12,7 @@ const Version = "v1.1.0"
 
 // Payment is the payment main struct of gopayment
 type Payment struct {
-	driver  drivers.Driver
+	driver  gateway.Driver
 	invoice *invoice.Invoice
 }
 
@@ -35,9 +35,9 @@ func (p *Payment) Purchase() error {
 	return nil
 }
 
-// PayUrl return the payment url
-func (p *Payment) PayUrl() string {
-	return p.driver.PayUrl(p.invoice)
+// PayURL return the payment URL
+func (p *Payment) PayURL() string {
+	return p.driver.PayURL(p.invoice)
 }
 
 // PayMethod returns the Request Method to be used to pay the invoice.
@@ -56,7 +56,7 @@ func (p *Payment) GetTransactionID() string {
 }
 
 // NewPayment create a new payment
-func NewPayment(driver drivers.Driver) *Payment {
+func NewPayment(driver gateway.Driver) *Payment {
 	return &Payment{
 		driver:  driver,
 		invoice: invoice.NewInvoice(),

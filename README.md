@@ -67,13 +67,13 @@ In order to pay the invoice, we need the payment transactionId.
 We purchase the invoice to retrieve transaction id:
 ```go
 // Configure the Gateway Driver
-gateway:=&payping.Driver{
+Gateway:=&payping.Driver{
 Callback:    "http://example.test/callback",
 Description: "test",
 Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 }
 // Create new Payment.
-payment := gopayment.NewPayment(gateway)
+payment := gopayment.NewPayment(Gateway)
 // Set Invoice Amount.
 err := payment.Amount(amountInt)
 if err != nil {
@@ -93,13 +93,13 @@ After purchasing the invoice, we can redirect the user to the bank payment page:
 func pay() gin.HandlerFunc {
     return func(c *gin.Context) {
         // Configure the Gateway Driver
-        gateway:=&payping.Driver{
+        Gateway:=&payping.Driver{
         Callback:    "http://example.test/callback",
         Description: "test",
         Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         }
         // Create new Payment.
-        payment := gopayment.NewPayment(gateway)
+        payment := gopayment.NewPayment(Gateway)
         // Set Invoice Amount.
         err := payment.Amount(amountInt)
         if err != nil {
@@ -113,7 +113,7 @@ func pay() gin.HandlerFunc {
         // Get Transaction ID
         transactionID := payment.GetTransactionID()
         // Redirect the user to the bank payment page.
-        payUrl := payment.PayUrl()
+        payUrl := payment.PayURL()
 		c.Redirect(http.StatusFound, payUrl)
 	}
 }
@@ -124,7 +124,7 @@ func pay() gin.HandlerFunc {
 When user has completed the payment, the bank redirects them to your website, then you need to **verify your payment** to make sure that the payment is valid.:
 ```go
 // Configure the Gateway Driver
-gateway:=&payping.Driver{
+Gateway:=&payping.Driver{
 Callback:    "http://example.test/callback",
 Description: "test",
 Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
