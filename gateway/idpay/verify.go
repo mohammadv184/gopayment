@@ -22,12 +22,12 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 	})
 
 	var res map[string]interface{}
-	if resp.StatusCode() != 200 {
+	_ = json.Unmarshal(resp.Body(), &res)
+	if _, ok := res["error_message"]; ok {
 		return nil, e.ErrInvalidPayment{
-			Message: resp.Status() + " : " + convertStatusCodeToString(resp.StatusCode()),
+			Message: res["error_message"].(string),
 		}
 	}
-	_ = json.Unmarshal(resp.Body(), &res)
 	if res["status"].(float64) != 100 {
 		return nil, e.ErrInvalidPayment{
 			Message: convertResponseStatusToMessage(res["status"].(float64)),
