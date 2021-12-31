@@ -17,7 +17,7 @@ type VerifyRequest struct {
 // Verify is the function to verify payment
 func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 	verifyReq, ok := vReq.(*VerifyRequest)
-	if ok {
+	if !ok {
 		return nil, e.ErrInternal{
 			Message: "vReq is not of type VerifyRequest",
 		}
