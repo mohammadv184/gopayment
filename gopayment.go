@@ -4,11 +4,11 @@ package gopayment
 import (
 	"github.com/mohammadv184/gopayment/gateway"
 	"github.com/mohammadv184/gopayment/invoice"
-	_ "github.com/mohammadv184/gopayment/pkg/http"
+	httpClient "github.com/mohammadv184/gopayment/pkg/http"
 )
 
 // Version is the version of gopayment
-const Version = "v1.3.4"
+const Version = "v1.4.0"
 
 // Payment is the payment main struct of gopayment
 type Payment struct {
@@ -43,6 +43,11 @@ func (p *Payment) PayURL() string {
 // PayMethod returns the Request Method to be used to pay the invoice.
 func (p *Payment) PayMethod() string {
 	return p.driver.PayMethod()
+}
+
+// SetClient sets the driver http client.
+func (p *Payment) SetClient(client httpClient.Client) {
+	p.driver.SetClient(client)
 }
 
 // GetInvoice return the payment invoice
