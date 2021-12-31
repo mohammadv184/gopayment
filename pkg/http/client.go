@@ -13,6 +13,8 @@ type Client interface {
 	Delete(url string, body interface{}, header map[string]string) (Response, error)
 	Request(method string, url string, body interface{}, header map[string]string) (Response, error)
 }
+
+// Response is an Adapter for resty response
 type Response interface {
 	Status() string
 	StatusCode() int
