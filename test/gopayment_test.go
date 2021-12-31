@@ -1,8 +1,9 @@
 package test
 
 import (
-	httpClient "github.com/mohammadv184/gopayment/pkg/http"
 	"testing"
+
+	httpClient "github.com/mohammadv184/gopayment/pkg/http"
 
 	"github.com/mohammadv184/gopayment"
 	"github.com/mohammadv184/gopayment/errors"
