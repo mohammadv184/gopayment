@@ -28,32 +28,32 @@ func NewHTTP() *HTTP {
 }
 
 // Get sends a GET request
-func (h *HTTP) Get(url string, query interface{}, header map[string]string) (*resty.Response, error) {
+func (h *HTTP) Get(url string, query interface{}, header map[string]string) (Response, error) {
 	return h.Request("GET", url, query, header)
 }
 
 // Post sends a POST request
-func (h *HTTP) Post(url string, body interface{}, header map[string]string) (*resty.Response, error) {
+func (h *HTTP) Post(url string, body interface{}, header map[string]string) (Response, error) {
 	return h.Request("POST", url, body, header)
 }
 
 // Put sends a PUT request
-func (h *HTTP) Put(url string, body interface{}, header map[string]string) (*resty.Response, error) {
+func (h *HTTP) Put(url string, body interface{}, header map[string]string) (Response, error) {
 	return h.Request("PUT", url, body, header)
 }
 
 // Patch sends a PATCH request
-func (h *HTTP) Patch(url string, body interface{}, header map[string]string) (*resty.Response, error) {
+func (h *HTTP) Patch(url string, body interface{}, header map[string]string) (Response, error) {
 	return h.Request("PATCH", url, body, header)
 }
 
 // Delete sends a DELETE request
-func (h *HTTP) Delete(url string, body interface{}, header map[string]string) (*resty.Response, error) {
+func (h *HTTP) Delete(url string, body interface{}, header map[string]string) (Response, error) {
 	return h.Request("DELETE", url, body, header)
 }
 
 // Request sends a http request
-func (h *HTTP) Request(method string, url string, body interface{}, header map[string]string) (*resty.Response, error) {
+func (h *HTTP) Request(method string, url string, body interface{}, header map[string]string) (Response, error) {
 	method = strings.ToUpper(method)
 	req := h.client.R()
 	req.SetHeaders(header)
