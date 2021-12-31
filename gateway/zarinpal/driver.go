@@ -13,18 +13,23 @@ type Driver struct {
 
 // Const's for zarinpal driver
 const (
-	ApiPurchaseUrl = "https://api.zarinpal.com/pg/v4/payment/request.json"
-	ApiVerifyUrl   = "https://api.zarinpal.com/pg/v4/payment/verify.json"
-	ApiPaymentUrl  = "https://www.zarinpal.com/pg/StartPay/"
+	APIPurchaseURL = "https://api.zarinpal.com/pg/v4/payment/request.json"
+	APIVerifyURL   = "https://api.zarinpal.com/pg/v4/payment/verify.json"
+	APIPaymentURL  = "https://www.zarinpal.com/pg/StartPay/"
 )
 
 var client httpClient.Client
 
 func init() {
-	client = httpClient.NewHttp()
+	client = httpClient.NewHTTP()
 }
 
 // GetDriverName returns driver name
 func (d Driver) GetDriverName() string {
 	return "ZarinPal"
+}
+
+// SetClient sets the http client
+func (d Driver) SetClient(c httpClient.Client) {
+	client = c
 }

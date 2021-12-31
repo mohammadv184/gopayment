@@ -1,9 +1,10 @@
 package test
 
 import (
+	"testing"
+
 	"github.com/mohammadv184/gopayment/trait"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type TraitsDetailTestSuite struct {

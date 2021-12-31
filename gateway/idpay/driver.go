@@ -2,6 +2,7 @@ package idpay
 
 import httpClient "github.com/mohammadv184/gopayment/pkg/http"
 
+// Driver configures the idpay driver
 type Driver struct {
 	MerchantID  string
 	Callback    string
@@ -11,18 +12,24 @@ type Driver struct {
 
 // Const's for idpay
 const (
-	ApiPurchaseUrl       = "https://api.idpay.ir/v1.1/payment"
-	ApiPaymentUrl        = "https://idpay.ir/p/ws/"
-	ApiSandBoxPaymentUrl = "https://idpay.ir/p/ws-sandbox/"
-	ApiVerifyUrl         = "https://api.idpay.ir/v1.1/payment/verify"
+	APIPurchaseURL       = "https://api.idpay.ir/v1.1/payment"
+	APIPaymentURL        = "https://idpay.ir/p/ws/"
+	APISandBoxPaymentURL = "https://idpay.ir/p/ws-sandbox/"
+	APIVerifyURL         = "https://api.idpay.ir/v1.1/payment/verify"
 )
 
 var client httpClient.Client
 
 func init() {
-	client = httpClient.NewHttp()
+	client = httpClient.NewHTTP()
 }
 
+// GetDriverName returns driver name
 func (d Driver) GetDriverName() string {
 	return "IDPay"
+}
+
+// SetClient sets the http client
+func (d Driver) SetClient(c httpClient.Client) {
+	client = c
 }

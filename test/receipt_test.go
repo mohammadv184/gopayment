@@ -1,10 +1,11 @@
 package test
 
 import (
-	"github.com/mohammadv184/gopayment/receipt"
-	"github.com/stretchr/testify/suite"
 	"testing"
 	"time"
+
+	"github.com/mohammadv184/gopayment/receipt"
+	"github.com/stretchr/testify/suite"
 )
 
 type ReceiptTestSuite struct {

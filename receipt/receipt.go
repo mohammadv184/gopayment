@@ -1,8 +1,9 @@
 package receipt
 
 import (
-	"github.com/mohammadv184/gopayment/trait"
 	"time"
+
+	"github.com/mohammadv184/gopayment/trait"
 )
 
 // Receipt is a struct that holds the information of a receipt

@@ -1,10 +1,11 @@
 package test
 
 import (
+	"testing"
+
 	"github.com/google/uuid"
 	"github.com/mohammadv184/gopayment/invoice"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type InvoiceTestSuite struct {

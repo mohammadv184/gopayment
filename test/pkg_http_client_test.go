@@ -2,20 +2,21 @@ package test
 
 import (
 	"encoding/json"
+	"testing"
+
 	"github.com/mohammadv184/gopayment/pkg/http"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
-type HttpClientTestSuite struct {
+type HTTPClientTestSuite struct {
 	suite.Suite
 	Client http.Client
 }
 
-func (s *HttpClientTestSuite) SetupTest() {
-	s.Client = http.NewHttp()
+func (s *HTTPClientTestSuite) SetupTest() {
+	s.Client = http.NewHTTP()
 }
-func (s *HttpClientTestSuite) TestGet() {
+func (s *HTTPClientTestSuite) TestGet() {
 	reqBody := map[string]interface{}{
 		"foo": "bar",
 	}
@@ -32,7 +33,7 @@ func (s *HttpClientTestSuite) TestGet() {
 	s.Equal(reqBody, respBody["args"])
 
 }
-func (s *HttpClientTestSuite) TestPost() {
+func (s *HTTPClientTestSuite) TestPost() {
 	reqBody := map[string]interface{}{
 		"foo": "bar",
 	}
@@ -52,7 +53,7 @@ func (s *HttpClientTestSuite) TestPost() {
 	s.Equal(reqBody, jsonData)
 
 }
-func (s *HttpClientTestSuite) TestPut() {
+func (s *HTTPClientTestSuite) TestPut() {
 	reqBody := map[string]interface{}{
 		"foo": "bar",
 	}
@@ -72,7 +73,7 @@ func (s *HttpClientTestSuite) TestPut() {
 	s.Equal(reqBody, jsonData)
 
 }
-func (s *HttpClientTestSuite) TestPatch() {
+func (s *HTTPClientTestSuite) TestPatch() {
 	reqBody := map[string]interface{}{
 		"foo": "bar",
 	}
@@ -92,7 +93,7 @@ func (s *HttpClientTestSuite) TestPatch() {
 	s.Equal(reqBody, jsonData)
 
 }
-func (s *HttpClientTestSuite) TestDelete() {
+func (s *HTTPClientTestSuite) TestDelete() {
 	reqBody := map[string]interface{}{
 		"foo": "bar",
 	}
@@ -112,7 +113,7 @@ func (s *HttpClientTestSuite) TestDelete() {
 	s.Equal(reqBody, jsonData)
 
 }
-func (s *HttpClientTestSuite) TestRequest() {
+func (s *HTTPClientTestSuite) TestRequest() {
 	reqBody := map[string]interface{}{
 		"foo": "bar",
 	}
@@ -133,5 +134,5 @@ func (s *HttpClientTestSuite) TestRequest() {
 
 }
 func TestHttpClientTestSuite(t *testing.T) {
-	suite.Run(t, new(HttpClientTestSuite))
+	suite.Run(t, new(HTTPClientTestSuite))
 }

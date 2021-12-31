@@ -2,6 +2,7 @@ package zarinpal
 
 import (
 	"encoding/json"
+
 	e "github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/receipt"
 )
@@ -14,8 +15,13 @@ type VerifyRequest struct {
 
 // Verify is the function to verify a payment
 func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
-	verifyReq := vReq.(*VerifyRequest)
-	resp, _ := client.Post(ApiVerifyUrl, verifyReq, nil)
+	verifyReq, ok := vReq.(*VerifyRequest)
+	if ok {
+		return nil, e.ErrInternal{
+			Message: "vReq is not of type VerifyRequest",
+		}
+	}
+	resp, _ := client.Post(APIVerifyURL, verifyReq, nil)
 	if resp.StatusCode() != 100 {
 		return nil, e.ErrInvalidPayment{
 			Message: resp.Status() + " Invalid payment",

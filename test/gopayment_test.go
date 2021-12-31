@@ -1,13 +1,15 @@
 package test
 
 import (
+	httpClient "github.com/mohammadv184/gopayment/pkg/http"
+	"testing"
+
 	"github.com/mohammadv184/gopayment"
 	"github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/gateway"
 	"github.com/mohammadv184/gopayment/invoice"
 	"github.com/mohammadv184/gopayment/receipt"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type GoPaymentTestSuite struct {
@@ -69,3 +71,6 @@ func (g *Gateway) Verify(interface{}) (*receipt.Receipt, error) {
 func (g *Gateway) PayMethod() string {
 	return "GET"
 }
+
+// SetClient sets the http client
+func (g *Gateway) SetClient(c httpClient.Client) {}

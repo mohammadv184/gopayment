@@ -2,9 +2,10 @@ package idpay
 
 import (
 	"encoding/json"
+	"strconv"
+
 	e "github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/invoice"
-	"strconv"
 )
 
 // Purchase send purchase request to idpay gateway
@@ -24,7 +25,7 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	if d, err := invoice.GetDetail("name"); err == nil {
 		reqBody["name"] = d
 	}
-	resp, err := client.Post(ApiPurchaseUrl, reqBody, map[string]string{
+	resp, err := client.Post(APIPurchaseURL, reqBody, map[string]string{
 		"X-API-KEY": d.MerchantID,
 		"X-SANDBOX": strconv.FormatBool(d.Sandbox),
 	})
@@ -47,9 +48,9 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 // PayURL return pay url
 func (d *Driver) PayURL(invoice *invoice.Invoice) string {
 	if d.Sandbox {
-		return ApiSandBoxPaymentUrl + invoice.GetTransactionID()
+		return APISandBoxPaymentURL + invoice.GetTransactionID()
 	}
-	return ApiPaymentUrl + invoice.GetTransactionID()
+	return APIPaymentURL + invoice.GetTransactionID()
 }
 
 // PayMethod returns the Request Method to be used to pay the invoice.

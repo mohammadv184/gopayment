@@ -2,6 +2,7 @@ package payping
 
 import (
 	"encoding/json"
+
 	e "github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/receipt"
 )
@@ -14,8 +15,13 @@ type VerifyRequest struct {
 
 // Verify is the function to verify payment
 func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
-	verifyReq := vReq.(*VerifyRequest)
-	resp, _ := client.Post(ApiVerifyUrl, verifyReq, map[string]string{
+	verifyReq, ok := vReq.(*VerifyRequest)
+	if ok {
+		return nil, e.ErrInternal{
+			Message: "vReq is not of type VerifyRequest",
+		}
+	}
+	resp, _ := client.Post(APIVerifyURL, verifyReq, map[string]string{
 		"Authorization": "Bearer " + d.Token,
 	})
 	var res map[string]interface{}
