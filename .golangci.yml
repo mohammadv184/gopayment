@@ -1,0 +1,39 @@
+run:
+  deadline: 5m
+  skip-dirs:
+    - tests
+
+linters-settings:
+  dupl:
+    threshold: 100
+  errcheck:
+    check-type-assertions: true
+    check-blank: false
+  govet:
+    check-shadowing: false
+  gocyclo:
+    min-complecity: 10
+
+linters:
+  enable-all: false
+  enable:
+    - govet
+    - errcheck
+    - golint
+    - goimports
+    - gosimple
+    - deadcode
+    - gocyclo
+    - unconvert
+    - gosec
+    - prealloc
+    - staticcheck
+
+issues:
+  exclude-rules:
+    - path: tests
+      linters:
+        - golint
+      text: "should have comment"
+
+  exclude-use-default: false
