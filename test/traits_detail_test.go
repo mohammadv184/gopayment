@@ -15,21 +15,22 @@ type TraitsDetailTestSuite struct {
 }
 
 func (s *TraitsDetailTestSuite) TestDetailTrait() {
-	_, err := s.ExampleObj.GetDetail("test")
-	s.NotNil(err)
+	d := s.ExampleObj.GetDetail("test")
+	s.Empty(d)
 
 	s.ExampleObj.Detail("foo", "bar")
 	s.ExampleObj.Detail("foo2", "bar2")
-	foo, err := s.ExampleObj.GetDetail("foo")
-	s.Nil(err)
+	foo := s.ExampleObj.GetDetail("foo")
+	s.NotEmpty(foo)
 	s.Equal("bar", foo)
 
-	foo2, err := s.ExampleObj.GetDetail("foo2")
-	s.Nil(err)
+	foo2 := s.ExampleObj.GetDetail("foo2")
+	s.NotEmpty(foo2)
 	s.Equal("bar2", foo2)
 
-	_, err = s.ExampleObj.GetDetail("foo3")
-	s.NotNil(err)
+	s.Equal(false, s.ExampleObj.Has("foo3"))
+	d = s.ExampleObj.GetDetail("foo3")
+	s.Empty(d)
 
 	details := s.ExampleObj.GetDetails()
 	s.Equal(map[string]string{

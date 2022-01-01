@@ -1,7 +1,5 @@
 package trait
 
-import "fmt"
-
 // HasDetail is a trait that can be applied to a struct to indicate that it has a detail field.
 type HasDetail struct {
 	details map[string]string
@@ -16,14 +14,17 @@ func (i *HasDetail) Detail(key string, value string) {
 }
 
 // GetDetail returns the detail for the given key.
-func (i *HasDetail) GetDetail(key string) (string, error) {
-	if i.details == nil {
-		return "", fmt.Errorf("no details")
-	}
+func (i *HasDetail) GetDetail(key string) string {
 	if value, ok := i.details[key]; ok {
-		return value, nil
+		return value
 	}
-	return "", fmt.Errorf("not found detail")
+	return ""
+}
+
+// Has returns true if the given key is present in the details.
+func (i *HasDetail) Has(key string) bool {
+	_, has := i.details[key]
+	return has
 }
 
 //GetDetails returns the details map.
