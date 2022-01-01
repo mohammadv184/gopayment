@@ -75,10 +75,7 @@ Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 // Create new Payment.
 payment := gopayment.NewPayment(driver)
 // Set Invoice Amount.
-err := payment.Amount(amountInt)
-if err != nil {
-    fmt.Println(err)
-}
+payment.Amount(amountInt)
 // Purchase the invoice.
 err = payment.Purchase()
 if err != nil {
@@ -101,11 +98,8 @@ func pay() gin.HandlerFunc {
         // Create new Payment.
         payment := gopayment.NewPayment(driver)
         // Set Invoice Amount.
-        err := payment.Amount(amountInt)
-        if err != nil {
-            fmt.Println(err)
-        }
-        // Purchase the invoice.
+		payment.Amount(amountInt)
+		// Purchase the invoice.
         err = payment.Purchase()
         if err != nil {
             fmt.Println(err)
@@ -137,12 +131,12 @@ RefID:  refID,
 }
 
 if receipt, err := driver.Verify(VerifyRequest); err == nil {
-cardNum, _ := receipt.GetDetail("cardNumber")
+
 c.JSON(200, gin.H{
 "status": "success",
 "data":   receipt.GetReferenceID(),
 "date":   receipt.GetDate().String(),
-"card":   cardNum,
+"card":   receipt.GetDetail("cardNumber"),
 "driver": receipt.GetDriver(),
 })
 } else {
