@@ -16,13 +16,13 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 		"amount":   invoice.GetAmount(),
 		"order_id": invoice.GetUUID(),
 	}
-	if d, err := invoice.GetDetail("phone"); err == nil {
+	if d := invoice.GetDetail("phone"); d != "" {
 		reqBody["phone"] = d
 	}
-	if d, err := invoice.GetDetail("email"); err == nil {
+	if d := invoice.GetDetail("email"); d != "" {
 		reqBody["mail"] = d
 	}
-	if d, err := invoice.GetDetail("name"); err == nil {
+	if d := invoice.GetDetail("name"); d != "" {
 		reqBody["name"] = d
 	}
 	resp, err := client.Post(APIPurchaseURL, reqBody, map[string]string{
