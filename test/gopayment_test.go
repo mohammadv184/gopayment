@@ -23,18 +23,13 @@ func (s *GoPaymentTestSuite) SetupTest() {
 }
 func (s *GoPaymentTestSuite) TestCreatePayment() {
 	payment := gopayment.NewPayment(s.Gateway)
-	err := payment.Amount(100)
+	payment.Amount(100)
+
+	err := payment.Purchase()
 	s.Nil(err)
 
-	err = payment.Amount(50000001)
-	s.NotNil(err)
-	s.Equal("amount must be less than 50,000,000", err.Error())
-
-	err = payment.Purchase()
-	s.Nil(err)
-
-	err = payment.Amount(99)
-	s.Nil(err)
+	payment.Amount(99)
+	payment.Client(httpClient.NewHTTP())
 	err = payment.Purchase()
 	s.NotNil(err)
 	s.EqualError(err, "amount is less than 100")
