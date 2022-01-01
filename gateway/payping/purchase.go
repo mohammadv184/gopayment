@@ -15,12 +15,12 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 		"amount":      invoice.GetAmount(),
 		"clientRefId": invoice.GetUUID(),
 	}
-	if d, err := invoice.GetDetail("phone"); err == nil {
+	if d := invoice.GetDetail("phone"); d != "" {
 		reqBody["payerIdentity"] = d
-	} else if d, err := invoice.GetDetail("email"); err == nil {
+	} else if d := invoice.GetDetail("email"); d != "" {
 		reqBody["payerIdentity"] = d
 	}
-	if d, err := invoice.GetDetail("name"); err == nil {
+	if d := invoice.GetDetail("name"); d != "" {
 		reqBody["payerName"] = d
 	}
 	resp, err := client.Post(APIPurchaseURL, reqBody, map[string]string{
@@ -30,7 +30,9 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 		return "", err
 	}
 	if resp.StatusCode() != 200 {
-		return "", e.ErrPurchaseFailed{}
+		return "", e.ErrPurchaseFailed{
+			Message: "Purchase failed",
+		}
 	}
 	var res map[string]interface{}
 	err = json.Unmarshal(resp.Body(), &res)
