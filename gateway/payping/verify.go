@@ -33,12 +33,11 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 			}
 		}
 
-		for _, k := range res {
+		for _, v := range res {
 			return nil, e.ErrInvalidPayment{
-				Message: k.(string),
+				Message: v.(string),
 			}
 		}
-		return nil, e.ErrInvalidPayment{}
 	}
 	rec := receipt.NewReceipt(verifyReq.RefID, d.GetDriverName())
 	rec.Detail("cardNumber", res["cardNumber"].(string))
