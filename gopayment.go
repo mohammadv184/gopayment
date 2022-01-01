@@ -17,12 +17,9 @@ type Payment struct {
 }
 
 // Amount set the amount of payment invoice
-func (p *Payment) Amount(amount int) error {
-	err := p.invoice.SetAmount(uint32(amount))
-	if err != nil {
-		return err
-	}
-	return nil
+func (p *Payment) Amount(amount int) *Payment {
+	p.invoice.SetAmount(uint32(amount))
+	return p.returnThis()
 }
 
 // Purchase send the purchase request to the payment gateway
@@ -45,9 +42,10 @@ func (p *Payment) PayMethod() string {
 	return p.driver.PayMethod()
 }
 
-// SetClient sets the driver http client.
-func (p *Payment) SetClient(client httpClient.Client) {
+// Client sets the driver http client.
+func (p *Payment) Client(client httpClient.Client) *Payment {
 	p.driver.SetClient(client)
+	return p.returnThis()
 }
 
 // GetInvoice return the payment invoice
@@ -58,6 +56,22 @@ func (p *Payment) GetInvoice() *invoice.Invoice {
 // GetTransactionID return the payment transaction id
 func (p *Payment) GetTransactionID() string {
 	return p.invoice.GetTransactionID()
+}
+
+// Description set the payment description
+func (p *Payment) Description(description string) *Payment {
+	p.invoice.SetDescription(description)
+	return p.returnThis()
+}
+
+// Detail set the payment detail
+func (p *Payment) Detail(key string, value string) *Payment {
+	p.invoice.Detail(key, value)
+	return p.returnThis()
+}
+
+func (p *Payment) returnThis() *Payment {
+	return p
 }
 
 // NewPayment create a new payment

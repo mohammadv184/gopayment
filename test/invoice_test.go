@@ -30,12 +30,8 @@ func (s *InvoiceTestSuite) TestCreateInvoice() {
 	_, err = uuid.Parse(testInvoice.GetUUID())
 	s.Nil(err)
 
-	err = s.Invoice.SetAmount(100)
-	s.Nil(err)
-	s.Equal(uint32(100), s.Invoice.GetAmount())
+	s.Invoice.SetAmount(100)
 
-	err = s.Invoice.SetAmount(50000001)
-	s.NotNil(err)
 	s.Equal(uint32(100), s.Invoice.GetAmount())
 
 	s.Invoice.SetTransactionID("test")

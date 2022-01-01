@@ -2,7 +2,6 @@ package invoice
 
 import (
 	"github.com/google/uuid"
-	"github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/trait"
 )
 
@@ -11,6 +10,7 @@ type Invoice struct {
 	uUID          string
 	amount        uint32
 	transactionID string
+	description   string
 	trait.HasDetail
 }
 
@@ -22,14 +22,9 @@ func NewInvoice() *Invoice {
 }
 
 // SetAmount sets the amount of the invoice
-func (i *Invoice) SetAmount(amount uint32) error {
-	if amount > 50000000 {
-		return errors.ErrInternal{
-			Message: "amount must be less than 50,000,000",
-		}
-	}
+func (i *Invoice) SetAmount(amount uint32) *Invoice {
 	i.amount = amount
-	return nil
+	return i.returnThis()
 }
 
 // GetAmount returns the amount of the invoice
@@ -38,14 +33,14 @@ func (i *Invoice) GetAmount() uint32 {
 }
 
 // SetUUID sets the UUID of the invoice
-func (i *Invoice) SetUUID(uid ...string) {
+func (i *Invoice) SetUUID(uid ...string) *Invoice {
 	if len(uid) > 0 {
 		i.uUID = uid[0]
 	}
 	if i.uUID == "" {
 		i.uUID = uuid.New().String()
 	}
-
+	return i.returnThis()
 }
 
 // GetUUID returns the UUID of the invoice
@@ -58,11 +53,26 @@ func (i *Invoice) GetUUID() string {
 }
 
 // SetTransactionID sets the transaction ID of the invoice
-func (i *Invoice) SetTransactionID(transactionID string) {
+func (i *Invoice) SetTransactionID(transactionID string) *Invoice {
 	i.transactionID = transactionID
+	return i.returnThis()
 }
 
 // GetTransactionID returns the transaction ID of the invoice
 func (i *Invoice) GetTransactionID() string {
 	return i.transactionID
+}
+
+// SetDescription sets the description of the invoice
+func (i *Invoice) SetDescription(description string) *Invoice {
+	i.description = description
+	return i.returnThis()
+}
+
+// GetDescription returns the description of the invoice
+func (i *Invoice) GetDescription() string {
+	return i.description
+}
+func (i *Invoice) returnThis() *Invoice {
+	return i
 }
