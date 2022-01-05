@@ -6,9 +6,8 @@ import (
 
 // Driver configures the payping driver
 type Driver struct {
-	Token       string
-	Callback    string
-	Description string
+	Token    string
+	Callback string
 }
 
 // Const's for payping

@@ -28,9 +28,8 @@ const (
 
 func (s *GatewayPayPingTestSuite) SetupTest() {
 	s.Driver = &payping.Driver{
-		Token:       token,
-		Description: description,
-		Callback:    callbackURL,
+		Token:    token,
+		Callback: callbackURL,
 	}
 	s.HTTPClient = new(mock.HTTPClient)
 	s.Driver.SetClient(s.HTTPClient)

@@ -4,10 +4,9 @@ import httpClient "github.com/mohammadv184/gopayment/pkg/http"
 
 // Driver configures the idpay driver
 type Driver struct {
-	MerchantID  string
-	Callback    string
-	Sandbox     bool
-	Description string
+	MerchantID string
+	Callback   string
+	Sandbox    bool
 }
 
 // Const's for idpay

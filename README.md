@@ -23,7 +23,9 @@ Multi Gateway Payment Package for Golang.
         - [Pay](#pay)
         - [Verify payment](#verify-payment)
         - [Working with invoices](#working-with-invoices)
+        - [Working with receipts](#working-with-receipts)
         - [Example](#example)
+- [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
 - [License](#license)
@@ -67,15 +69,16 @@ In order to pay the invoice, we need the payment transactionId.
 We purchase the invoice to retrieve transaction id:
 ```go
 // Configure the Gateway Driver
-driver:=&payping.Driver{
+gateway:=&payping.Driver{
 Callback:    "http://example.test/callback",
-Description: "test",
 Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 }
 // Create new Payment.
-payment := gopayment.NewPayment(driver)
+payment := gopayment.NewPayment(gateway)
 // Set Invoice Amount.
 payment.Amount(amountInt)
+// Set Invoice Description.
+payment.Description("description")
 // Purchase the invoice.
 err = payment.Purchase()
 if err != nil {
@@ -90,15 +93,16 @@ After purchasing the invoice, we can redirect the user to the bank payment page:
 func pay() gin.HandlerFunc {
     return func(c *gin.Context) {
         // Configure the Gateway Driver
-        driver:=&payping.Driver{
+        gateway:=&payping.Driver{
         Callback:    "http://example.test/callback",
-        Description: "test",
         Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         }
         // Create new Payment.
-        payment := gopayment.NewPayment(driver)
+        payment := gopayment.NewPayment(gateway)
         // Set Invoice Amount.
 		payment.Amount(amountInt)
+		// Set Invoice Description.
+		payment.Description("description")
 		// Purchase the invoice.
         err = payment.Purchase()
         if err != nil {
@@ -118,9 +122,8 @@ func pay() gin.HandlerFunc {
 When user has completed the payment, the bank redirects them to your website, then you need to **verify your payment** to make sure that the payment is valid.:
 ```go
 // Configure the Gateway Driver
-driver:=&payping.Driver{
+gateway:=&payping.Driver{
 Callback:    "http://example.test/callback",
-Description: "test",
 Token:       "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 }
 
@@ -130,14 +133,14 @@ Amount: "100",
 RefID:  refID,
 }
 
-if receipt, err := driver.Verify(VerifyRequest); err == nil {
+if receipt, err := gateway.Verify(VerifyRequest); err == nil {
 
 c.JSON(200, gin.H{
 "status": "success",
 "data":   receipt.GetReferenceID(),
 "date":   receipt.GetDate().String(),
 "card":   receipt.GetDetail("cardNumber"),
-"driver": receipt.GetDriver(),
+"gateway": receipt.GetDriver(),
 })
 } else {
 c.JSON(200, gin.H{
@@ -153,11 +156,13 @@ When you make a payment, the invoice is automatically generated within the payme
 In your code, use it like the below:
 ```go
 // Create new Payment.
-payment := gopayment.NewPayment(driver)
+payment := gopayment.NewPayment(gateway)
 // Get the invoice.
 invoice:=payment.GetInvoice()
 // Set Invoice Amount.
 invoice.SetAmount(1000)
+// Set Invoice Description.
+invoice.SetDescription("description")
 // Set Invoice Deatils.
 invoice.Detail("phone","0912345678")
 invoice.Detail("email","example@example.com")
@@ -174,9 +179,42 @@ Available methods:
 - `GetAmount`: retrieve invoice amount
 - `SetTransactionID`: set invoice payment transaction id
 - `GetTransactionID`: retrieve payment transaction id
+- `SetDescription`: set invoice Description
+- `GetDescription`: retrieve payment Description
+#### Working with receipts
 
+When you verify a payment, the receipt is automatically generated.
+
+
+In your code, use it like the below:
+```go
+// Verify the Payment.
+receipt := gateway.verify(...)
+// Get the Payment Reference ID.
+refId := receipt.GetReferenceID()
+// Get the payment date .
+paymentDate:=receipt.GetDate()
+// Get the payment driver name.
+paymentDriver:=receipt.GetDriver()
+// Get payment Deatils.
+cardNum:=receipt.GetDetail("cardNumber")
+cardHNum:=receipt.GetDetail("HashedCardNumber")
+
+
+```
+Available methods:
+
+- `GetReferenceID`: retrieve the payment reference id
+- `GetDriver`: retrieve the payment driver name
+- `Detail`: attach some custom details into invoice
+- `GetDate`: retrieve payment date
+- `GetDetail`: retrieve the invoice detail
+- `GetDetails`: retrieve all custom details
 #### Example
-You Can See example of implementation in the [GoPayment-Example](https://github.com/mohammadv184/gopayment-example) Repo
+There is an example project using GoPayment you can find at [GoPayment-Example](https://github.com/mohammadv184/gopayment-example) Repo It contains a payment implementation.
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 ## Security
 
 If you discover any security related issues, please email mohammadv184@gmail.com instead of using the issue tracker.

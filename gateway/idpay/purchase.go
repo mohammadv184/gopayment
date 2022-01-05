@@ -12,7 +12,7 @@ import (
 func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	var reqBody = map[string]interface{}{
 		"callback": d.Callback,
-		"desc":     d.Description,
+		"desc":     invoice.GetDescription(),
 		"amount":   invoice.GetAmount(),
 		"order_id": invoice.GetUUID(),
 	}

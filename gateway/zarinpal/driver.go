@@ -6,9 +6,8 @@ import (
 
 // Driver config struct for zarinpal driver
 type Driver struct {
-	MerchantID  string
-	Callback    string
-	Description string
+	MerchantID string
+	Callback   string
 }
 
 // Const's for zarinpal driver

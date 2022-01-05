@@ -12,7 +12,7 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 	var reqBody = map[string]interface{}{
 		"merchant_id":  d.MerchantID,
 		"callback_url": d.Callback,
-		"description":  d.Description,
+		"description":  invoice.GetDescription(),
 		"amount":       invoice.GetAmount(),
 		"metadata":     invoice.GetDetails(),
 	}
