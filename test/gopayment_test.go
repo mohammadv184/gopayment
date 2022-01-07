@@ -38,6 +38,9 @@ func (s *GoPaymentTestSuite) TestCreatePayment() {
 	s.Equal("GET", payment.PayMethod())
 	s.Equal("Gateway.com/"+payment.GetTransactionID(), payment.PayURL())
 
+	_, err = payment.RenderRedirectForm()
+	s.NoError(err)
+
 }
 func TestGoPaymentTestSuite(t *testing.T) {
 	suite.Run(t, new(GoPaymentTestSuite))
@@ -70,3 +73,6 @@ func (g *Gateway) PayMethod() string {
 
 // SetClient sets the http client
 func (g *Gateway) SetClient(c httpClient.Client) {}
+func (g *Gateway) RenderRedirectForm(invoice *invoice.Invoice) (string, error) {
+	return "", nil
+}

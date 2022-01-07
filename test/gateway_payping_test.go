@@ -2,6 +2,7 @@ package test
 
 import (
 	"encoding/json"
+	"github.com/mohammadv184/gopayment/helpers"
 	"testing"
 
 	"github.com/google/uuid"
@@ -69,7 +70,14 @@ func (s *GatewayPayPingTestSuite) TestPurchaseSuccess() {
 	s.HTTPClient.AssertExpectations(s.T())
 	s.Equal(payment.GetTransactionID(), respBody["code"])
 	s.Equal(payping.APIPaymentURL+respBody["code"].(string), payment.PayURL())
+
 	s.Equal("GET", payment.PayMethod())
+	actualRedirectTMPL, err := payment.RenderRedirectForm()
+	s.NoError(err)
+	expectedRedirectTMPL, err := helpers.RenderRedirectTemplate("GET", payping.APIPaymentURL+respBody["code"].(string), nil)
+	s.NoError(err)
+	s.Equal(expectedRedirectTMPL, actualRedirectTMPL)
+
 }
 func (s *GatewayPayPingTestSuite) TestVerifySuccess() {
 	reqBody := payping.VerifyRequest{
