@@ -70,6 +70,11 @@ func (p *Payment) Detail(key string, value string) *Payment {
 	return p.returnThis()
 }
 
+// RenderRedirectForm renders the html form for redirect to payment page.
+func (p *Payment) RenderRedirectForm() (string, error) {
+	return p.driver.RenderRedirectForm(p.invoice)
+}
+
 func (p *Payment) returnThis() *Payment {
 	return p
 }
