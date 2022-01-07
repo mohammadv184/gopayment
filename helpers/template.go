@@ -5,8 +5,9 @@ import (
 	"html/template"
 )
 
+// RenderRedirectTemplate renders the redirect template
 func RenderRedirectTemplate(method string, url string, data map[string]string) (string, error) {
-	tmp, _ := template.New("html").Parse(RedirectTemplate)
+	tmp, _ := template.New("html").Parse(redirectTemplate)
 	var tpl bytes.Buffer
 	err := tmp.Execute(&tpl, map[string]interface{}{
 		"method": method,
@@ -19,7 +20,7 @@ func RenderRedirectTemplate(method string, url string, data map[string]string) (
 	return tpl.String(), nil
 }
 
-const RedirectTemplate = `
+const redirectTemplate = `
 <!DOCTYPE html>
 <html lang="en">
 <head>

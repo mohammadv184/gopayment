@@ -2,8 +2,9 @@ package test
 
 import (
 	"encoding/json"
-	"github.com/mohammadv184/gopayment/helpers"
 	"testing"
+
+	"github.com/mohammadv184/gopayment/helpers"
 
 	"github.com/google/uuid"
 	"github.com/mohammadv184/gopayment"
