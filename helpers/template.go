@@ -11,7 +11,7 @@ func RenderRedirectTemplate(method string, url string, data map[string]string) (
 	var tpl bytes.Buffer
 	err := tmp.Execute(&tpl, map[string]interface{}{
 		"method": method,
-		"payUrl": url,
+		"payURL": url,
 		"data":   data,
 	})
 	if err != nil {
