@@ -2,6 +2,7 @@ package idpay
 
 import (
 	"encoding/json"
+	"github.com/mohammadv184/gopayment/helpers"
 	"strconv"
 
 	e "github.com/mohammadv184/gopayment/errors"
@@ -94,4 +95,9 @@ func convertStatusCodeToString(statusCode int) string {
 	default:
 		return "Unknown"
 	}
+}
+
+// RenderRedirectForm renders the html form for redirect to payment page.
+func (d *Driver) RenderRedirectForm(invoice *invoice.Invoice) (string, error) {
+	return helpers.RenderRedirectTemplate(d.PayMethod(), d.PayURL(invoice), nil)
 }

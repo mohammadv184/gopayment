@@ -20,4 +20,6 @@ type Driver interface {
 	PayMethod() string
 	// SetClient sets the http client.
 	SetClient(client httpClient.Client)
+	// RenderRedirectForm renders the html form for redirect to payment page.
+	RenderRedirectForm(invoice *invoice.Invoice) (string, error)
 }

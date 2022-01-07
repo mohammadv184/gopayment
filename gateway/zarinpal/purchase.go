@@ -2,6 +2,7 @@ package zarinpal
 
 import (
 	"encoding/json"
+	"github.com/mohammadv184/gopayment/helpers"
 
 	e "github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/invoice"
@@ -38,4 +39,8 @@ func (d *Driver) PayURL(invoice *invoice.Invoice) string {
 // PayMethod returns the Request Method to be used to pay the invoice.
 func (d *Driver) PayMethod() string {
 	return "GET"
+}
+
+func (d *Driver) RenderRedirectForm(invoice *invoice.Invoice) (string, error) {
+	return helpers.RenderRedirectTemplate(d.PayMethod(), d.PayURL(invoice), nil)
 }
