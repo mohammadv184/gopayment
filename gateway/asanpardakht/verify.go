@@ -10,7 +10,6 @@ import (
 // VerifyRequest is the request struct for verify
 type VerifyRequest struct {
 	InvoiceID string `json:"invoice_id"`
-	ID        string `json:"id"`
 }
 
 // Verify is the function to verify payment
