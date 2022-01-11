@@ -33,7 +33,7 @@ Multi Gateway Payment Package for Golang.
 # List of available drivers
 - [zarinpal](https://www.zarinpal.com/) :white_check_mark:
 - [payping](https://www.payping.ir/) :white_check_mark:
-- [asanpardakht](https://asanpardakht.ir/) :x: (will be added soon)
+- [asanpardakht](https://asanpardakht.ir/) :white_check_mark:
 - [behpardakht (mellat)](http://www.behpardakht.com/) :x: (will be added soon)
 - [digipay](https://www.mydigipay.com/) :x: (will be added soon)
 - [etebarino (Installment payment)](https://etebarino.com/) :x: (will be added soon)
