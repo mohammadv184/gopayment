@@ -2,6 +2,7 @@ package asanpardakht
 
 import (
 	"encoding/json"
+
 	e "github.com/mohammadv184/gopayment/errors"
 	"github.com/mohammadv184/gopayment/receipt"
 )
@@ -25,7 +26,12 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 	if err != nil {
 		return nil, err
 	}
-	payGateTranID := tranRes["PayGateTranID"].(string)
+	payGateTranID, ok := tranRes["PayGateTranID"].(string)
+	if !ok {
+		return nil, e.ErrInternal{
+			Message: "PayGateTranID is not of type string",
+		}
+	}
 	// step 2: verify payment
 	err = d.verifyRequest(payGateTranID)
 	if err != nil {
@@ -67,10 +73,10 @@ func (d *Driver) getTranResult(vReq *VerifyRequest) (map[string]interface{}, err
 	_ = json.Unmarshal(resp.Body(), &res)
 	return res, nil
 }
-func (d *Driver) verifyRequest(payGateTranId string) error {
+func (d *Driver) verifyRequest(payGateTranID string) error {
 	resp, err := client.Post(APIVerifyURL, map[string]string{
 		"merchantConfigurationId": d.MerchantConfigID,
-		"payGateTranId":           payGateTranId,
+		"payGateTranID":           payGateTranID,
 	}, map[string]string{
 		"usr": d.Username,
 		"pwd": d.Password,
@@ -90,10 +96,10 @@ func (d *Driver) verifyRequest(payGateTranId string) error {
 	return nil
 
 }
-func (d *Driver) settlementRequest(payGateTranId string) error {
+func (d *Driver) settlementRequest(payGateTranID string) error {
 	resp, err := client.Post(APISettlementURL, map[string]string{
 		"merchantConfigurationId": d.MerchantConfigID,
-		"payGateTranId":           payGateTranId,
+		"payGateTranID":           payGateTranID,
 	}, map[string]string{
 		"usr": d.Username,
 		"pwd": d.Password,
