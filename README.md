@@ -50,7 +50,7 @@ Multi Gateway Payment Package for Golang.
 - [saman](https://www.sep.ir) :x: (will be added soon)
 - [walleta (Installment payment)](https://walleta.ir/) :x: (will be added soon)
 - [yekpay](https://yekpay.com/) :x: (will be added soon)
-- [zibal](https://www.zibal.ir/) :x: (will be added soon)
+- [zibal](https://www.zibal.ir/) :white_check_mark:
 - [sepordeh](https://sepordeh.com/) :x: (will be added soon)
 - [paypal](http://www.paypal.com/) :x: (will be added soon)
 - **Help me to add the other gateways by creating `pull requests`**
