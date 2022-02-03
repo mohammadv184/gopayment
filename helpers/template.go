@@ -9,14 +9,11 @@ import (
 func RenderRedirectTemplate(method string, url string, data map[string]string) (string, error) {
 	tmp, _ := template.New("html").Parse(redirectTemplate)
 	var tpl bytes.Buffer
-	err := tmp.Execute(&tpl, map[string]interface{}{
+	_ = tmp.Execute(&tpl, map[string]interface{}{
 		"method": method,
 		"payURL": url,
 		"data":   data,
 	})
-	if err != nil {
-		return "", err
-	}
 	return tpl.String(), nil
 }
 

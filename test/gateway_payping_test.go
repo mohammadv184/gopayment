@@ -23,15 +23,15 @@ type GatewayPayPingTestSuite struct {
 }
 
 const (
-	token       = "xxxx-xxxx-xxxx-xxxx-xxxx"
-	description = "test"
-	callbackURL = "http://localhost:8080/callback"
+	paypingToken       = "xxxx-xxxx-xxxx-xxxx-xxxx"
+	paypingDescription = "test"
+	paypingCallbackURL = "http://localhost:8080/callback"
 )
 
 func (s *GatewayPayPingTestSuite) SetupTest() {
 	s.Driver = &payping.Driver{
-		Token:    token,
-		Callback: callbackURL,
+		Token:    paypingToken,
+		Callback: paypingCallbackURL,
 	}
 	s.HTTPClient = new(mock.HTTPClient)
 	s.Driver.SetClient(s.HTTPClient)
@@ -39,12 +39,12 @@ func (s *GatewayPayPingTestSuite) SetupTest() {
 func (s *GatewayPayPingTestSuite) TestPurchaseSuccess() {
 	payment := gopayment.NewPayment(s.Driver)
 	payment.Amount(1000)
-	payment.Description(description)
+	payment.Description(paypingDescription)
 	payment.Detail("phone", "+989120000000")
 	payment.Detail("name", "John Doe")
 
 	reqBody := map[string]interface{}{
-		"returnUrl":     callbackURL,
+		"returnUrl":     paypingCallbackURL,
 		"description":   payment.GetInvoice().GetDescription(),
 		"amount":        payment.GetInvoice().GetAmount(),
 		"clientRefId":   payment.GetInvoice().GetUUID(),
@@ -52,7 +52,7 @@ func (s *GatewayPayPingTestSuite) TestPurchaseSuccess() {
 		"payerName":     "John Doe",
 	}
 	header := map[string]string{
-		"Authorization": "Bearer " + token,
+		"Authorization": "Bearer " + paypingToken,
 	}
 	respBody := map[string]interface{}{
 		"code": "cosuh87gf",
@@ -86,7 +86,7 @@ func (s *GatewayPayPingTestSuite) TestVerifySuccess() {
 		Amount: "1000",
 	}
 	header := map[string]string{
-		"Authorization": "Bearer " + token,
+		"Authorization": "Bearer " + paypingToken,
 	}
 	respBody := map[string]interface{}{
 		"amount":      1000,
@@ -115,12 +115,12 @@ func (s *GatewayPayPingTestSuite) TestVerifySuccess() {
 func (s *GatewayPayPingTestSuite) TestPurchaseFailed() {
 	payment := gopayment.NewPayment(s.Driver)
 	payment.Amount(1000)
-	payment.Description(description)
+	payment.Description(paypingDescription)
 	payment.Detail("email", "test@example.com")
 	payment.Detail("name", "John Doe")
 
 	reqBody := map[string]interface{}{
-		"returnUrl":     callbackURL,
+		"returnUrl":     paypingCallbackURL,
 		"description":   payment.GetInvoice().GetDescription(),
 		"amount":        payment.GetInvoice().GetAmount(),
 		"clientRefId":   payment.GetInvoice().GetUUID(),
@@ -128,7 +128,7 @@ func (s *GatewayPayPingTestSuite) TestPurchaseFailed() {
 		"payerName":     "John Doe",
 	}
 	header := map[string]string{
-		"Authorization": "Bearer " + token,
+		"Authorization": "Bearer " + paypingToken,
 	}
 	respBody := map[string]interface{}{
 		"code": "cosuh87gf",
@@ -183,7 +183,7 @@ func (s *GatewayPayPingTestSuite) TestVerifyFailed() {
 		Amount: "1000",
 	}
 	header := map[string]string{
-		"Authorization": "Bearer " + token,
+		"Authorization": "Bearer " + paypingToken,
 	}
 	respBody := map[string]interface{}{
 		"1": "error",

@@ -21,7 +21,10 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 			Message: "vReq is not of type VerifyRequest",
 		}
 	}
-	resp, _ := client.Post(APIVerifyURL, verifyReq, nil)
+	resp, err := client.Post(APIVerifyURL, verifyReq, nil)
+	if err != nil {
+		return nil, err
+	}
 	if resp.StatusCode() != 100 {
 		return nil, e.ErrInvalidPayment{
 			Message: resp.Status() + " Invalid payment",
@@ -29,7 +32,7 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 	}
 
 	var res map[string]interface{}
-	err := json.Unmarshal(resp.Body(), &res)
+	err = json.Unmarshal(resp.Body(), &res)
 	if err != nil {
 		return nil, err
 	}
