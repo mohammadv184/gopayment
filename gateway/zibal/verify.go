@@ -33,7 +33,7 @@ func (d *Driver) Verify(vReq interface{}) (*receipt.Receipt, error) {
 
 	if resp.StatusCode() != 200 || res["result"].(float64) != 100 {
 		return nil, e.ErrPurchaseFailed{
-			Message: res["message"].(string),
+			Message: resp.Status() + " " + res["message"].(string),
 		}
 	}
 

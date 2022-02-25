@@ -32,7 +32,7 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 
 	if resp.StatusCode() != 200 || res["result"].(float64) != 100 {
 		return "", e.ErrPurchaseFailed{
-			Message: res["message"].(string),
+			Message: resp.Status() + " " + res["message"].(string),
 		}
 	}
 
