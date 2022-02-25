@@ -65,8 +65,6 @@ func convertResponseStatusToMessage(status float64) string {
 		return "به درگاه پرداخت منتقل شد"
 	case 10:
 		return "در انتظار تایید پرداخت"
-	case 100:
-		return "پرداخت تایید شده است"
 	case 101:
 		return "پرداخت قبلا تایید شده است"
 	case 200:
