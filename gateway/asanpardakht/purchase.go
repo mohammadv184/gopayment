@@ -34,9 +34,6 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 			Message: resp.Status(),
 		}
 	}
-	if err != nil {
-		return "", err
-	}
 	return string(resp.Body()), nil
 }
 
