@@ -38,12 +38,12 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 }
 
 // PayURL return pay url
-func (d *Driver) PayURL(_ *invoice.Invoice) string {
+func (*Driver) PayURL(_ *invoice.Invoice) string {
 	return APIPaymentURL
 }
 
 // PayMethod returns the Request Method to be used to pay the invoice.
-func (d *Driver) PayMethod() string {
+func (*Driver) PayMethod() string {
 	return "POST"
 }
 

@@ -56,7 +56,7 @@ func (d *Driver) PayURL(invoice *invoice.Invoice) string {
 }
 
 // PayMethod returns the Request Method to be used to pay the invoice.
-func (d *Driver) PayMethod() string {
+func (*Driver) PayMethod() string {
 	return "GET"
 }
 
