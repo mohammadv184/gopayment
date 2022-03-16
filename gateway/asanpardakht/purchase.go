@@ -38,7 +38,7 @@ func (d *Driver) Purchase(invoice *invoice.Invoice) (string, error) {
 }
 
 // PayURL return pay url
-func (d *Driver) PayURL(invoice *invoice.Invoice) string {
+func (d *Driver) PayURL(_ *invoice.Invoice) string {
 	return APIPaymentURL
 }
 

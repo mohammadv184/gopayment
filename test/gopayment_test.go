@@ -72,7 +72,7 @@ func (g *Gateway) PayMethod() string {
 }
 
 // SetClient sets the http client
-func (g *Gateway) SetClient(c httpClient.Client) {}
-func (g *Gateway) RenderRedirectForm(invoice *invoice.Invoice) (string, error) {
+func (g *Gateway) SetClient(_ httpClient.Client) {}
+func (g *Gateway) RenderRedirectForm(_ *invoice.Invoice) (string, error) {
 	return "", nil
 }
