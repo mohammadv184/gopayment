@@ -65,7 +65,7 @@ func (p *Payment) Description(description string) *Payment {
 }
 
 // Detail set the payment detail
-func (p *Payment) Detail(key string, value string) *Payment {
+func (p *Payment) Detail(key, value string) *Payment {
 	p.invoice.Detail(key, value)
 	return p.returnThis()
 }

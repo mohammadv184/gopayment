@@ -6,7 +6,7 @@ import (
 )
 
 // RenderRedirectTemplate renders the redirect template
-func RenderRedirectTemplate(method string, url string, data map[string]string) (string, error) {
+func RenderRedirectTemplate(method, url string, data map[string]string) (string, error) {
 	tmp, _ := template.New("html").Parse(redirectTemplate)
 	var tpl bytes.Buffer
 	_ = tmp.Execute(&tpl, map[string]interface{}{

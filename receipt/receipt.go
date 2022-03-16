@@ -15,7 +15,7 @@ type Receipt struct {
 }
 
 // NewReceipt creates a new receipt
-func NewReceipt(reference string, driver string) *Receipt {
+func NewReceipt(reference, driver string) *Receipt {
 	return &Receipt{
 		referenceID: reference,
 		driver:      driver,
