@@ -50,10 +50,10 @@ func TestGoPaymentTestSuite(t *testing.T) {
 type Gateway struct {
 }
 
-func (g Gateway) GetDriverName() string {
+func (Gateway) GetDriverName() string {
 	return "MockGateway"
 }
-func (g *Gateway) Purchase(invoice *invoice.Invoice) (string, error) {
+func (*Gateway) Purchase(invoice *invoice.Invoice) (string, error) {
 	if invoice.GetAmount() < 100 {
 		return "", errors.ErrPurchaseFailed{
 			Message: "amount is less than 100",
@@ -61,18 +61,18 @@ func (g *Gateway) Purchase(invoice *invoice.Invoice) (string, error) {
 	}
 	return invoice.GetUUID(), nil
 }
-func (g *Gateway) PayURL(invoice *invoice.Invoice) string {
+func (*Gateway) PayURL(invoice *invoice.Invoice) string {
 	return "Gateway.com/" + invoice.GetTransactionID()
 }
 func (g *Gateway) Verify(interface{}) (*receipt.Receipt, error) {
 	return receipt.NewReceipt("test", g.GetDriverName()), nil
 }
-func (g *Gateway) PayMethod() string {
+func (*Gateway) PayMethod() string {
 	return "GET"
 }
 
 // SetClient sets the http client
-func (g *Gateway) SetClient(_ httpClient.Client) {}
-func (g *Gateway) RenderRedirectForm(_ *invoice.Invoice) (string, error) {
+func (*Gateway) SetClient(_ httpClient.Client) {}
+func (*Gateway) RenderRedirectForm(_ *invoice.Invoice) (string, error) {
 	return "", nil
 }

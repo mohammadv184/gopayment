@@ -24,11 +24,11 @@ func init() {
 }
 
 // GetDriverName returns driver name
-func (d Driver) GetDriverName() string {
+func (Driver) GetDriverName() string {
 	return "Zibal"
 }
 
 // SetClient sets the http client
-func (d Driver) SetClient(c httpClient.Client) {
+func (Driver) SetClient(c httpClient.Client) {
 	client = c
 }
