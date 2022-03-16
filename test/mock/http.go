@@ -48,7 +48,7 @@ func (m *HTTPClient) Delete(url string, body interface{}, header map[string]stri
 }
 
 // Request is a mocking a method
-func (m *HTTPClient) Request(method string, url string, body interface{}, header map[string]string) (httpClient.Response, error) {
+func (m *HTTPClient) Request(method, url string, body interface{}, header map[string]string) (httpClient.Response, error) {
 	args := m.Called(method, url, body, header)
 	return args.Get(0).(httpClient.Response), args.Error(1)
 }

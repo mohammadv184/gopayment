@@ -6,7 +6,7 @@ type HasDetail struct {
 }
 
 // Detail sets the detail for the given key.
-func (i *HasDetail) Detail(key string, value string) {
+func (i *HasDetail) Detail(key, value string) {
 	if i.details == nil {
 		i.details = make(map[string]string)
 	}

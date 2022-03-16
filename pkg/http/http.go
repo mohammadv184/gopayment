@@ -53,7 +53,7 @@ func (h *HTTP) Delete(url string, body interface{}, header map[string]string) (R
 }
 
 // Request sends a http request
-func (h *HTTP) Request(method string, url string, body interface{}, header map[string]string) (Response, error) {
+func (h *HTTP) Request(method, url string, body interface{}, header map[string]string) (Response, error) {
 	method = strings.ToUpper(method)
 	req := h.client.R()
 	req.SetHeaders(header)
