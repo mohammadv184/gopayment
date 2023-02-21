@@ -31,7 +31,7 @@ linters:
 
 issues:
   exclude-rules:
-    - path: tests
+    - path: test
       linters:
         - golint
       text: "should have comment"
